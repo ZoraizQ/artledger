@@ -1,17 +1,23 @@
 import React from "react";
 import "./SwipeButtons.css";
-import MonetizationIcon from "@mui/icons-material/Replay";
-import AccountCircleIcon from "@mui/icons-material/StarRate";
+
+import { Link } from "react-router-dom";
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import IconButton from "@mui/material/IconButton";
 
-const SwipeButtons = () => {
+function SwipeButtons({username="artist"}) {
+  // current username of artist
+
   return (
     <div className="swipeButtons">
-      <IconButton className="swipeButtons__star">
-        <AccountCircleIcon fontSize="large" />
-      </IconButton>
-      <IconButton className="swipeButtons__right">
-        <MonetizationIcon fontSize="large" />
+      <Link to={`/${username}`} style={{ textDecoration: 'none', color: 'black', marginLeft: 10 }}>
+        <IconButton className="swipeButtons__star" size="small">
+          <AccountCircleIcon fontSize="large" />
+        </IconButton>
+      </Link>
+      <IconButton className="swipeButtons__right" size="small">
+        <MonetizationOnIcon fontSize="large" />
       </IconButton>
     </div>
   );
