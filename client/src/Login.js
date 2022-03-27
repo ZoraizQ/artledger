@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Box } from "@mui/material";
-
+import { get_consumer_info, sign_up } from './api';
+import './Header.css';
 
 let init = false;
 let iframe = null;
@@ -18,15 +19,15 @@ function initLogin() {
 }
 
 
-// function signUp(type) {
+function signUp(type) {
 
-//   // center the window.
-//   const h = 1000;
-//   const w = 800;
-//   const y = window.outerHeight / 2 + window.screenY - h / 2;
-//   const x = window.outerWidth / 2 + window.screenX - w / 2;
-//   identityWindow = window.open("https://identity.deso.org/log-in", null, `toolbar=no, width=${w}, height=${h}, top=${y}, left=${x}`);
-// }
+  // center the window.
+  const h = 1000;
+  const w = 800;
+  const y = window.outerHeight / 2 + window.screenY - h / 2;
+  const x = window.outerWidth / 2 + window.screenX - w / 2;
+  identityWindow = window.open("https://identity.deso.org/log-in", null, `toolbar=no, width=${w}, height=${h}, top=${y}, left=${x}`);
+}
 
 
 function handleInit(e) {
@@ -68,7 +69,8 @@ function postMessage(e) {
 
 
 
-function Login({setUserKey, setLoggedIn, setUser, setType}) {
+function Login({setUserKey, setLoggedIn, setUser, setSeedHex, setType}) {
+  const [loginType, setLoginType] = useState("login");
 
   useEffect(() => {
     // const childWindow = document.getElementById('identity').contentWindow;
@@ -87,9 +89,24 @@ function Login({setUserKey, setLoggedIn, setUser, setType}) {
         console.log("payload", payload);
         handleLogin(payload);
 
+        const key = payload.publicKeyAdded;
+        console.log('seedhex', payload.users[key].encryptedSeedHex)
+        setSeedHex(payload.users[key].encryptedSeedHex);
+
+        if (loginType == "signUp") { // only sign up button for artists right now
+          sign_up(key, "artists");
+        }
+        // else {
+        //   sign_up(key, "consumers");
+        // }
+
         setUserKey(payload.publicKeyAdded);  
         setLoggedIn(true);
 
+        get_consumer_info(payload.publicKeyAdded).then(userInfo => 
+          {console.log('userInfo', userInfo); setUser(userInfo)}
+          );
+        
         console.log("Logged in!");
       }
     });
@@ -99,18 +116,26 @@ function Login({setUserKey, setLoggedIn, setUser, setType}) {
   
   return (    
     <div className="Login" style={{marginTop: -20}}>
+      <div style={{padding: 50}}></div>
+      <img className="deso-logo"
+      src="https://logowik.com/content/uploads/images/decentralized-social-deso3198.jpg" 
+      loading="eager" alt="" width="200" height="150"/>
+        
       <Box sx={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: "center",
       }}>  
-        <Button onClick={initLogin}>
+        <Button variant="contained" onClick={() => {setLoginType("login"); initLogin();}}>
           Login with Deso
         </Button>
-        {/* <Button onClick={() => signUp("artists")}>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
+        <Button variant="contained" color="secondary" onClick={() => {setLoginType("signUp"); signUp("artists");}}>
           Sign up as an Artist
         </Button>
-        <Button onClick={() => signUp("consumers")}>
+        {/* <Button onClick={() => signUp("consumers")}>
           Sign up as a Viewer
         </Button> */}
       </Box>

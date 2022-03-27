@@ -5,7 +5,7 @@
 ## How to run
 
 1. Clone the repo
-2. Run `yarn start` or `npm start`
+2. Run `npm start`
 3. No dependency tracker has been added yet, may add in future builds to make sure others can download
 
 ### Dependencies used
