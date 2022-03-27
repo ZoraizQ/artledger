@@ -47,3 +47,7 @@ Server:
 * flask
 * deso (blockchain)
 * pyrebase (Firebase wrapper for side information)
+
+### Code Sources used for help
+* Directly used and modified DeSo Python Request Wrapper - https://github.com/AdityaChaudhary0005/DeSo.py
+* React Tinder Clone basic guide - https://www.youtube.com/watch?v=DQfeB_FKKkc
