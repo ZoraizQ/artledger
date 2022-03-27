@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Gallery from "react-photo-gallery";
 import { useParams } from "react-router-dom";
-import { Avatar, Typography, makeStyles, Box } from "@mui/material";
+import { Avatar, Typography, makeStyles, Box, Icon } from "@mui/material";
 // import "./Profile.css";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import { get_artists_info, get_posts } from "./api";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import DiamondIcon from '@mui/icons-material/Diamond';
+
 
 
 const morePhotos = [
@@ -47,6 +50,7 @@ function ArtistProfile() {
     if (artistKey !== undefined) {
       get_artists_info(artistKey).then(info => {
         console.log('artist info ', info);
+        info.diamonds = 0;
         setArtist(info);
       })
     }
@@ -64,6 +68,7 @@ function ArtistProfile() {
             width: 1,
             height: 1
           }
+          
 
           if (p.ImageURLs !== null && p.ImageURLs !== undefined && p.ImageURLs.length !== 0) {
             post.src = p.ImageURLs[0]; 
@@ -88,7 +93,20 @@ function ArtistProfile() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: "center",
+        marginBottom: 2
       }}>
+        <div className="logo-header">
+          <FavoriteIcon></FavoriteIcon>
+          <h5 style={{fontSize: 20, fontFamily: "Courier New", fontWeight: 400}}>{artist.likes}</h5>
+        </div>
+      
+        <div className="logo-header">
+          <DiamondIcon></DiamondIcon>
+          <h5 style={{fontSize: 20, fontFamily: "Courier New", fontWeight: 400}}>{artist.diamonds}</h5>
+        </div>
+
+        &nbsp;&nbsp;
+      
         <Avatar
           src={artist.profile_pic}
           alt="User avatar"
@@ -108,7 +126,6 @@ function ArtistProfile() {
         </div>
       </Box>
 
-      <Typography style={{margin: 5}}>My Art</Typography>
       <Gallery photos={photos} onClick={openLightbox} />
 
       <ModalGateway>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Avatar, Typography, makeStyles, Box } from "@mui/material";
 import { get_liked_posts } from "./api";
 import "./Profile.css";
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
 
 // const photos = [
@@ -49,6 +50,11 @@ function Profile({userKey, user}) {
         justifyContent: 'center',
         alignItems: "center",
       }}>
+        <div className="logo-header">
+          <MonetizationOnIcon></MonetizationOnIcon>
+          <h5 style={{fontSize: 20, fontFamily: "Courier New", fontWeight: 400}}>DeSo: {user.tips ? user.tips.toString().substring(0,6) : 0}</h5>
+        </div>
+
         <Avatar
           src={user.profile_pic}
           alt="User avatar"
@@ -64,7 +70,7 @@ function Profile({userKey, user}) {
         </div>
       </Box>
 
-      <Typography style={{margin: 5}}>Liked Art</Typography>
+      <Typography style={{margin: 5, fontFamily: "Courier New", fontWeight: 600}}>Liked Art</Typography>
       <Gallery photos={photos} />
     </div>
   );
