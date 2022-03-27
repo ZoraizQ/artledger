@@ -12,11 +12,17 @@
 
 .card h3 {
     position: absolute;
+    bottom: 30px;
+    color: white;
+}
+
+.card h5 {
+    position: absolute;
     bottom: 10px;
     color: white;
 }
 
-.tinderCards__cardContainer {
+.SwipeCards__cardContainer {
     display: flex;
     justify-content: center;
     margin-top: 5vh;

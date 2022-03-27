@@ -1,13 +1,13 @@
 import React from "react";
 import "./Header.css";
-import PersonIcon from "@material-ui/icons/Person";
-import ForumIcon from "@material-ui/icons/Forum";
-import IconButton from "@material-ui/core/IconButton";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { Link, useHistory } from "react-router-dom";
+import PersonIcon from "@mui/icons-material/Person";
+import ForumIcon from "@mui/icons-material/Forum";
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { Link, useNavigate } from "react-router-dom";
 
 function Header({ backButton }) {
-  const history = useHistory();
+  const history = useNavigate();
   return (
     <div className="header">
       {backButton ? (
@@ -22,15 +22,15 @@ function Header({ backButton }) {
       <Link to="/">
         <img
           className="header__logo"
-          src="https://1000logos.net/wp-content/uploads/2018/07/tinder-logo.png"
-          alt="tinder logo"
+          src="https://www.graphicsprings.com/filestorage/stencils/1f4e948fcfc9977ee6fb567bd815132d.png?width=500&height=500"
+          alt="logo"
         />
       </Link>
-      <Link to="/chat">
+      {/* <Link to="/chat">
         <IconButton>
           <ForumIcon className="header__icon" fontSize="large" />
         </IconButton>
-      </Link>
+      </Link> */}
     </div>
   );
 }

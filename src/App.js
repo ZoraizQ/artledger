@@ -1,33 +1,26 @@
 import React from "react";
 import Header from "./Header";
-import TinderCards from "./TinderCards";
+import SwipeCards from "./SwipeCards";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SwipeButtons from "./SwipeButtons";
-import Chats from "./Chats";
-import ChatScreen from "./ChatScreen";
+
+
+function Home() {
+  return <div className="App">
+    <Header />
+    <SwipeCards />
+    <SwipeButtons />
+  </div>
+}
 
 function App() {
   return (
-    <div className="App">
       <Router>
-        <Switch>
-          <Route path="/chat/:person">
-            <Header backButton="/chat" />
-            <ChatScreen/>
-          </Route>
-          <Route path="/chat">
-            <Header backButton="/" />
-            <Chats />
-          </Route>
-          <Route path="/">
-            <Header />
-            <TinderCards />
-            <SwipeButtons />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route index element={<Home />} />
+        </Routes>
       </Router>
-    </div>
   );
 }
 
