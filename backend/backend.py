@@ -1,4 +1,5 @@
-from random import random
+from queue import Empty
+from random import random, shuffle
 from unittest import result
 from Users import Users
 from Post import Post
@@ -7,7 +8,8 @@ from Trade import Trade
 from Deso import Deso
 import pprint
 from flask import Flask
-from flask import request
+from flask import request, jsonify
+app = Flask(__name__)
 import pyrebase
 
 config = {
@@ -16,91 +18,121 @@ config = {
   "projectId": "desoart-172d0",
   "storageBucket": "desoart-172d0.appspot.com",
   "messagingSenderId": "859512512594",
-  "appId": "1:859512512594:web:46129010e5fa4650043f8b"
+  "appId": "1:859512512594:web:46129010e5fa4650043f8b",
+  "databaseURL": "https://desoart-172d0-default-rtdb.firebaseio.com",
+  "serviceAccount": "sa.json"
 }
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
 @app.route('/sign_up',methods=['POST'])
-def sign_up(public_key,type):
-    public_key = request.form["public_key"]
-    type = request.form["type"]
+def sign_up():
+    r = request.get_json()
+    public_key = r["key"]
+    type = r["type"]
     username = Users.getUsernameFromKey(public_key)
+
     data = {
         "username":username,
         "liked": list()
     }
-    results = db.child(type).push(data,public_key) #type can only be consumers or artists
+    print(data, public_key)
+    results = db.child(type).child(public_key).set(data) #type can only be consumers or artists
 
 @app.route('/get_random_posts')
 def get_random_posts():
-    artists = list(db.child("artists").get().values())
-    chosen = list()
-    posts = list()
-    for i in range(5):
-        index = random.randint(0,len(artists))
-        #chosen.append(artists[index])
-        posts.append(Posts.getUserPosts(artists[index]))
-    
-    for i in posts:
-        index = random.randint(0,len(i))
-        chosen.append(i[index])
+    artists = db.child("artists").get().val()
 
-    return chosen
+    chosen = list()
+    for public_key, _ in artists.items():
+        posts = Posts.getUserPosts(publicKey=public_key)
+        chosen += posts['Posts']
+
+    shuffle(chosen)
+    return {'posts': chosen}
 
 @app.route('/get_consumer_info/<public_key>')
 def get_consumer_info(public_key):
     info = {}
     info["username"] = Users.getUsernameFromKey(public_key)
     info["profile_pic"] = Users.getProfilePic(public_key)
+
     return info
 
-@app.route('/get_consumer_info/<public_key>')
-def get_artists_info(public_key):
+
+
+@app.route('/get_artists_info',methods=['POST'])
+def get_artists_info():
+    r = request.get_json()
+    public_key = r["key"]
+    username = r["name"]
     info = {}
     info["username"] = Users.getUsernameFromKey(public_key)
     info["profile_pic"] = Users.getProfilePic(public_key)
     info["tips"] = Users.getWallet(public_key)["CloutInWalletNanos"]
     total = 0
-    posts = Posts.getUserPosts(public_key)
+    posts = Posts.getUserPosts(username)
+    posts = posts["Posts"]
+    print(posts)
     for i in posts:
-        total += posts["LikeCount"]
+        total += int(i["LikeCount"])
     info["likes"] = total
     return info
 
-@app.route('/get_posts/<public_key>')
-def get_posts(public_key):
-    return Posts.getUserPosts(public_key)
 
-@app.route('/get_single_posts/<postHashHex>')
+
+@app.route('/get_posts/<username>')
+def get_posts(username):
+    return Posts.getUserPosts(username)
+
+@app.route('/get_single_post/<postHashHex>')
 def get_single_post(postHashHex):
     return Posts.getPostInfo(postHashHex)
 
 
 #like function
 @app.route('/like_post',methods=['POST'])
-def like_post(postHashHex,consumer_public_key):
-    public_key = request.form["public_key"]
-    postHashHex = request.form["postHasHex"]
-    Post.like(postHashHex)
-    db.child("consumers").update({"liked": list.append(postHashHex) },consumer_public_key)
+def like_post():
+    r = request.get_json()
+    public_key = r["public_key"]
+    postHashHex = r["postHashHex"]
+    seedHex = r["seedHex"]
+    post = Post(seedHex = seedHex, publicKey= public_key)
+    post.like(postHashHex= postHashHex)
+    username = Users.getUsernameFromKey(public_key)
+    list_attr = db.child("consumers").child(public_key).get().val()
+    liked_arr = []
+
+    for attr, value in list_attr.items():
+        if attr == 'liked':
+            liked_arr = value
+            break
+
+    db.child("consumers").child(public_key).set({"username": username, "liked": 
+    liked_arr + [postHashHex]})
+    return {}
+
 
 #get consumers liked posts
 @app.route('/get_liked_posts/<public_key>')
 def get_liked_posts(public_key):
-    posthash = db.child("consumers").get("liked",public_key)
+    posthash_od = db.child("consumers").child(public_key).get().val()
+    print(posthash_od)
     output = list()
-    for i in posthash:
-        output.append(get_single_post(i))
-    return output
+    for attr, value in posthash_od.items():
+        if attr == 'liked':
+            posthash_list = value
+            for i in posthash_list:
+                output.append(get_single_post(i))
+    return {'posts':output}
 
-def upload_image(seed, public_key,path, contentin):
-    post = Post(seedHex=seed,publicKey=public_key)
-    imageFileList=[
-    ('file',('screenshot.jpg',open(path, "rb"),'image/png'))
-    ]
-    url = post.uploadImage(imageFileList)
-    post.send(content=contentin,imageUrl= url['ImageURL'])
+# def upload_image(seed, public_key,path, contentin):
+#     post = Post(seedHex=seed,publicKey=public_key)
+#     imageFileList=[
+#     ('file',('screenshot.jpg',open(path, "rb"),'image/png'))
+#     ]
+#     url = post.uploadImage(imageFileList)
+#     post.send(content=contentin,imageUrl= url['ImageURL'])
 
 
 app.run(debug=True)
