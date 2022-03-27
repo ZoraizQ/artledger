@@ -69,7 +69,7 @@ def get_artists_info():
     info = {}
     info["username"] = Users.getUsernameFromKey(public_key)
     info["profile_pic"] = Users.getProfilePic(public_key)
-    info["tips"] = Users.getWallet(public_key)["CloutInWalletNanos"]
+    info["tips"] = Users.getWallet(public_key)["CoinsHeldInfo"]
     total = 0
     posts = Posts.getUserPosts(username)
     posts = posts["Posts"]

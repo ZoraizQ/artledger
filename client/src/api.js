@@ -52,7 +52,7 @@ async function get_artists_info(public_key,username){
     console.log(data);
     return data;
 }
-//get_artists_info('BC1YLiyxrKs33n3mwPDaT2h7rNigZNSxTAAe1SY9SVkoeQA2h5A7b3p','zoraizq');
+get_artists_info('BC1YLiyxrKs33n3mwPDaT2h7rNigZNSxTAAe1SY9SVkoeQA2h5A7b3p','zoraizq');
 
 async function get_posts(username){
     const response = await fetch(URL + '/get_posts/' + username)
