@@ -8,21 +8,22 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SwipeButtons from "./SwipeButtons";
 
-function Home() {
-  return <div className="App">
-    <SwipeCards />
-    <SwipeButtons />
-  </div>
-}
-
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userKey, setUserKey] = useState("");
   const [user, setUser] = useState({});
   const [type, setType] = useState("consumers");
+  const [seedHex, setSeedHex] = useState("");
+  const [currentArtistKey, setCurrentArtistKey] = useState("");
   
-
+  
+  function Home() {
+    return <div className="App">
+      <SwipeCards seedHex={seedHex} userKey={userKey} setCurrentArtistKey={setCurrentArtistKey}/>
+      <SwipeButtons currentArtistKey={currentArtistKey} />
+    </div>
+  }
 
   return (
       <Router>
@@ -31,11 +32,11 @@ function App() {
           {
             loggedIn ?
             <Route index element={<Home />} /> :
-            <Route index element={<Login setLoggedIn={setLoggedIn} setUserKey={setUserKey} setUser={setUser} setType={setType}/>} />
+            <Route index element={<Login setLoggedIn={setLoggedIn} setSeedHex={setSeedHex} setUserKey={setUserKey} setUser={setUser} setType={setType}/>} />
           }
 
           <Route path="/profile" element={<Profile userKey={userKey} user={user}/>} />
-          <Route path="/artist/:username" element={<ArtistProfile />} />
+          <Route path="/artist/:key" element={<ArtistProfile />} />
         </Routes>
       </Router>
   );

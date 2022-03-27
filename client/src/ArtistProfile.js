@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 import { Avatar, Typography, makeStyles, Box } from "@mui/material";
 // import "./Profile.css";
 import Carousel, { Modal, ModalGateway } from "react-images";
+import { get_artists_info, get_posts } from "./api";
 
 
-
-const photos = [
+const morePhotos = [
   {
     src: 'https://www.pictureframesexpress.co.uk/blog/wp-content/uploads/2020/05/7-Tips-to-Finding-Art-Inspiration-Header-1024x649.jpg',    
     width: 4,
@@ -23,9 +23,9 @@ const photos = [
 
 
 function ArtistProfile() {
-  let { username } = useParams();
-  
-  const [user, setUser] = useState([]);
+  const [artistKey, setArtistKey] = useState(useParams().key);
+  const [artist, setArtist] = useState({});
+  const [photos, setPhotos] = useState([]);
 
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
@@ -42,15 +42,43 @@ function ArtistProfile() {
   };
 
 
-  useEffect(() => {  
-    let userInfo = {
-      username: username, 
-      photoUrl:'https://i.pravatar.cc/150?u=fake@pravatar.com',
-    };
-
-    setUser(userInfo);
+  useEffect(() => {
+    console.log('artistKey', artistKey);  
+    if (artistKey !== undefined) {
+      get_artists_info(artistKey).then(info => {
+        console.log('artist info ', info);
+        setArtist(info);
+      })
+    }
     
-  }, []);
+
+    get_posts(artistKey).then(
+      posts => {
+        console.log('artistposts',posts);
+        let posts_filtered = posts.Posts.map(p => {
+          let post = { 
+            description: p.Body, 
+            id: p.PostHashHex,
+            // artist_username: post.ProfileEntryResponse != null ? post.ProfileEntryResponse.Username : '',
+            artist_key: p.PosterPublicKeyBase58Check,
+            width: 1,
+            height: 1
+          }
+
+          if (p.ImageURLs !== null && p.ImageURLs !== undefined && p.ImageURLs.length !== 0) {
+            post.src = p.ImageURLs[0]; 
+          }
+          
+          return post;
+
+        });
+        console.log('photos', posts_filtered);
+        
+        setPhotos(posts_filtered);
+      }
+    )
+
+  }, [artistKey]);
 
   return (
 
@@ -62,14 +90,21 @@ function ArtistProfile() {
         alignItems: "center",
       }}>
         <Avatar
-          src={user.photoUrl}
+          src={artist.profile_pic}
           alt="User avatar"
           sx={{ width: 84, height: 84 }}
         />
-        <div to={`/${user.username}`} style={{ textDecoration: 'none', color: 'black', marginLeft: 10 }}>
-          <Typography className="username" variant="h6">
-            {user.username}
+        <div to={`/${artist.username}`} style={{ textDecoration: 'none', color: 'black', marginLeft: 10 }}>
+          {
+            artist.username &&
+            <Typography className="username" variant="h6">
+              {artist.username.substring(0, 10)}
+            </Typography>
+          }
+          <Typography fontSize={10} variant="h6">
+            {artist.username}
           </Typography>
+         
         </div>
       </Box>
 

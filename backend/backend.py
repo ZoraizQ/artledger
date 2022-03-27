@@ -8,8 +8,10 @@ from Trade import Trade
 from Deso import Deso
 import pprint
 from flask import Flask
+from flask_cors import CORS
 from flask import request, jsonify
 app = Flask(__name__)
+CORS(app)
 import pyrebase
 
 config = {
@@ -65,15 +67,13 @@ def get_consumer_info(public_key):
 def get_artists_info():
     r = request.get_json()
     public_key = r["key"]
-    username = r["name"]
     info = {}
     info["username"] = Users.getUsernameFromKey(public_key)
     info["profile_pic"] = Users.getProfilePic(public_key)
     info["tips"] = Users.getWallet(public_key)["CoinsHeldInfo"]
     total = 0
-    posts = Posts.getUserPosts(username)
+    posts = Posts.getUserPosts(publicKey=public_key)
     posts = posts["Posts"]
-    print(posts)
     for i in posts:
         total += int(i["LikeCount"])
     info["likes"] = total
@@ -83,7 +83,7 @@ def get_artists_info():
 
 @app.route('/get_posts/<username>')
 def get_posts(username):
-    return Posts.getUserPosts(username)
+    return Posts.getUserPosts(publicKey=username)
 
 @app.route('/get_single_post/<postHashHex>')
 def get_single_post(postHashHex):
@@ -97,6 +97,7 @@ def like_post():
     public_key = r["public_key"]
     postHashHex = r["postHashHex"]
     seedHex = r["seedHex"]
+    print(public_key, postHashHex, seedHex)
     post = Post(seedHex = seedHex, publicKey= public_key)
     post.like(postHashHex= postHashHex)
     username = Users.getUsernameFromKey(public_key)

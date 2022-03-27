@@ -1,11 +1,11 @@
 import fetch from 'node-fetch'
 //const fetch = require("node-fetch")
-//make function opposites in js
+//export make function opposites in js
 
 // fetch local host
 const URL  = "http://127.0.0.1:5000"
 
-async function sign_up(public_key,type){
+export async function sign_up(public_key,type){
     const param = {key:public_key, type: type};
     const response = await fetch(URL + '/sign_up', {
         method: 'POST',
@@ -20,7 +20,7 @@ async function sign_up(public_key,type){
 }
 // sign_up('BC1YLiyxrKs33n3mwPDaT2h7rNigZNSxTAAe1SY9SVkoeQA2h5A7b3p',"consumers")
 
-async function get_random_posts(){
+export async function get_random_posts(){
     const response = await fetch(URL + '/get_random_posts')
     console.log(response);
     const data = await response.json();
@@ -29,7 +29,7 @@ async function get_random_posts(){
 }
 get_random_posts();
 
-async function get_consumer_info(public_key){
+export async function get_consumer_info(public_key){
     const response = await fetch(URL + '/get_consumer_info/' + public_key)
     //console.log(response);
     const data = await response.json();
@@ -38,8 +38,8 @@ async function get_consumer_info(public_key){
 }
 // get_consumer_info('BC1YLiyxrKs33n3mwPDaT2h7rNigZNSxTAAe1SY9SVkoeQA2h5A7b3p');
 
-async function get_artists_info(public_key,username){
-    const param = {key:public_key, name:username};
+export async function get_artists_info(public_key){
+    const param = {key:public_key};
     const response = await fetch(URL + '/get_artists_info' , {
         method: 'POST',
         headers: {
@@ -54,7 +54,7 @@ async function get_artists_info(public_key,username){
 }
 get_artists_info('BC1YLiyxrKs33n3mwPDaT2h7rNigZNSxTAAe1SY9SVkoeQA2h5A7b3p','zoraizq');
 
-async function get_posts(username){
+export async function get_posts(username){
     const response = await fetch(URL + '/get_posts/' + username)
     console.log(response);
     const data = await response.json();
@@ -64,7 +64,7 @@ async function get_posts(username){
 //get_posts('zoraizq');
 
 
-async function get_single_post(postHashHex){
+export async function get_single_post(postHashHex){
     const response = await fetch(URL + '/get_single_post/' + postHashHex)
     console.log(response);
     const data = await response.json();
@@ -73,7 +73,7 @@ async function get_single_post(postHashHex){
 }
 //get_single_post('affab325bf298937c9111955f1c6605d02465a138d620ea8642bc4882e0021db');
 
-async function like_post(postHashHex, public_key, seedHex){
+export async function like_post(postHashHex, public_key, seedHex){
     const param = {postHashHex: postHashHex, public_key:public_key, seedHex:seedHex};
     const response = await fetch(URL + '/like_post', {
         method: 'POST',
@@ -89,7 +89,7 @@ async function like_post(postHashHex, public_key, seedHex){
 // like_post('affab325bf298937c9111955f1c6605d02465a138d620ea8642bc4882e0021db','BC1YLiyxrKs33n3mwPDaT2h7rNigZNSxTAAe1SY9SVkoeQA2h5A7b3p','a1c2941bf195fb6d6d4771ccb0d95d8adf1099b83de95ec6ac22c990bc528051');
 
 
-async function get_liked_posts(public_key){
+export async function get_liked_posts(public_key){
     const response = await fetch(URL + '/get_liked_posts/' + public_key)
     console.log(response);
     const data = await response.json();

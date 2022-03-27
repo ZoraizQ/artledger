@@ -35,4 +35,10 @@ requests-toolbelt==0.7.0
 rsa==4.8
 six==1.16.0
 urllib3==1.26.9
-Werkzeug==2.0.3
+base58
+jwt
+gcloud
+setuptools
+pyrebase
+pycrypto
+flask_cors

@@ -6,13 +6,13 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import IconButton from "@mui/material/IconButton";
 
-function SwipeButtons({username="artist"}) {
+function SwipeButtons({currentArtistKey}) {
   // current username of artist
 
   return (
     <div className="swipeButtons">
-      <Link to={`/artist/${username}`} style={{ textDecoration: 'none', color: 'black', marginLeft: 10 }}>
-        <IconButton className="swipeButtons__star" size="small">
+      <Link to={`/artist/${currentArtistKey}`} style={{ textDecoration: 'none', color: 'black', marginLeft: 10 }}>
+        <IconButton className="swipeButtons__left" size="small">
           <AccountCircleIcon fontSize="large" />
         </IconButton>
       </Link>
