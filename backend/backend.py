@@ -11,6 +11,7 @@ from flask import Flask
 from flask import request, jsonify
 app = Flask(__name__)
 import pyrebase
+import math
 
 config = {
   "apiKey": "AIzaSyBC8sBWUtc7fvPbPJ_3a2p51IH20RLJ-8Y",
@@ -69,7 +70,7 @@ def get_artists_info():
     info = {}
     info["username"] = Users.getUsernameFromKey(public_key)
     info["profile_pic"] = Users.getProfilePic(public_key)
-    info["tips"] = Users.getWallet(public_key)["CoinsHeldInfo"]
+    info["tips"] = Users.getWallet(public_key)["CloutInWalletNanos"] * math.pow(10,-9)
     total = 0
     posts = Posts.getUserPosts(username)
     posts = posts["Posts"]
