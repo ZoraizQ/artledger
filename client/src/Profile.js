@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Gallery from "react-photo-gallery";
 import { Link } from "react-router-dom";
 import { Avatar, Typography, makeStyles, Box } from "@mui/material";
-// import "./Profile.css";
+import "./Profile.css";
 
 
 const photos = [
@@ -26,7 +26,7 @@ function Profile() {
 
   useEffect(() => {
     let userInfo = {
-      username: 'Zoraiz Qureshi', 
+      username: 'zoraizq', 
       photoUrl:'https://zoraizq.github.io/static/media/profile.88c2ba019505adaef67a.jpg',
     };
 
@@ -49,13 +49,13 @@ function Profile() {
           sx={{ width: 84, height: 84 }}
         />
         <div to={`/${user.username}`} style={{ textDecoration: 'none', color: 'black', marginLeft: 10 }}>
-          <Typography variant="h6">
+          <Typography className="username" variant="h6">
             {user.username}
           </Typography>
         </div>
       </Box>
 
-      <h5 style={{margin: 5}}>Liked Art</h5>
+      <Typography style={{margin: 5}}>Liked Art</Typography>
       <Gallery photos={photos} />
     </div>
   );

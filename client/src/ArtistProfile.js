@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Gallery from "react-photo-gallery";
 import { useParams } from "react-router-dom";
 import { Avatar, Typography, makeStyles, Box } from "@mui/material";
 // import "./Profile.css";
+import Carousel, { Modal, ModalGateway } from "react-images";
+
 
 
 const photos = [
@@ -24,6 +26,21 @@ function ArtistProfile() {
   let { username } = useParams();
   
   const [user, setUser] = useState([]);
+
+  const [currentImage, setCurrentImage] = useState(0);
+  const [viewerIsOpen, setViewerIsOpen] = useState(false);
+
+
+  const openLightbox = useCallback((event, { photo, index }) => {
+    setCurrentImage(index);
+    setViewerIsOpen(true);
+  }, []);
+
+  const closeLightbox = () => {
+    setCurrentImage(0);
+    setViewerIsOpen(false);
+  };
+
 
   useEffect(() => {  
     let userInfo = {
@@ -50,14 +67,29 @@ function ArtistProfile() {
           sx={{ width: 84, height: 84 }}
         />
         <div to={`/${user.username}`} style={{ textDecoration: 'none', color: 'black', marginLeft: 10 }}>
-          <Typography variant="h6">
+          <Typography className="username" variant="h6">
             {user.username}
           </Typography>
         </div>
       </Box>
 
-      <h5 style={{margin: 5}}>My Art</h5>
-      <Gallery photos={photos} />
+      <Typography style={{margin: 5}}>My Art</Typography>
+      <Gallery photos={photos} onClick={openLightbox} />
+
+      <ModalGateway>
+        {viewerIsOpen ? (
+          <Modal onClose={closeLightbox}>
+            <Carousel
+              currentIndex={currentImage}
+              views={photos.map(x => ({
+                ...x,
+                srcset: x.srcSet,
+                caption: x.title
+              }))}
+            />
+          </Modal>
+        ) : null}
+      </ModalGateway>
     </div>
   );
 };

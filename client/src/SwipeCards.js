@@ -4,6 +4,17 @@ import "./SwipeCards.css";
 
 function SwipeCards() {
   const [posts, setPosts] = useState([]);
+  const [lastDirection, setLastDirection] = useState("")
+
+  
+  const swiped = (direction, nameToDelete) => {
+    console.log('removing: ' + nameToDelete)
+    setLastDirection(direction)
+    if (direction == "right") {
+      // like post
+    }
+  }
+  
 
   useEffect(() => {
     // get random posts
@@ -48,6 +59,7 @@ function SwipeCards() {
             className="swipe"
             key={post.description}
             preventSwipe={["up", "down"]}
+            onSwipe={(dir) => swiped(dir, post.description)}
           >
             <div
               style={{ backgroundImage: `url(${post.imageUrl})` }}
@@ -59,6 +71,7 @@ function SwipeCards() {
           </SwipeCard>
         ))}
       </div>
+      {lastDirection ? <h2 className='infoText'>{lastDirection != "" && lastDirection == "right" ? "Liked" : "Nope"}</h2> : <h2 className='infoText' />}
     </div>
   );
 }

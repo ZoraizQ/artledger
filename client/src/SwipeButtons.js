@@ -11,7 +11,7 @@ function SwipeButtons({username="artist"}) {
 
   return (
     <div className="swipeButtons">
-      <Link to={`/${username}`} style={{ textDecoration: 'none', color: 'black', marginLeft: 10 }}>
+      <Link to={`/artist/${username}`} style={{ textDecoration: 'none', color: 'black', marginLeft: 10 }}>
         <IconButton className="swipeButtons__star" size="small">
           <AccountCircleIcon fontSize="large" />
         </IconButton>

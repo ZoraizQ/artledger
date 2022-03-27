@@ -1,8 +1,21 @@
 .header {
     display:flex;
     justify-content: space-between;
-    border-bottom: 1px solid #f9f9f9;
     align-items: center;
+}
+
+
+.logo-text {
+    color: teal;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.logo-header {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    margin-right: 20px;
 }
 
 .header__logo {
