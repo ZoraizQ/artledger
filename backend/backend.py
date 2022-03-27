@@ -59,6 +59,7 @@ def get_consumer_info(public_key):
     info = {}
     info["username"] = Users.getUsernameFromKey(public_key)
     info["profile_pic"] = Users.getProfilePic(public_key)
+    info["tips"] = Users.getWallet(public_key)["CloutInWalletNanos"] * math.pow(10,-9)
 
     return info
 
