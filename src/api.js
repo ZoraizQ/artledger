@@ -1,9 +1,8 @@
 import fetch from 'node-fetch'
-//const fetch = require("node-fetch")
-//export make function opposites in js
 
-// fetch local host
-const URL  = "http://127.0.0.1:5000"
+// const URL  = "http://127.0.0.1:5000"
+const URL  = "https://art-ledger.herokuapp.com:5000"
+
 
 export async function sign_up(public_key,type){
     const param = {key:public_key, type: type};
