@@ -26,7 +26,7 @@ function signUp(type) {
   const w = 800;
   const y = window.outerHeight / 2 + window.screenY - h / 2;
   const x = window.outerWidth / 2 + window.screenX - w / 2;
-  identityWindow = window.open("https://identity.deso.org/log-in", null, `toolbar=no, width=${w}, height=${h}, top=${y}, left=${x}`);
+  identityWindow = window.open("https://identity.deso.org/sign-up", null, `toolbar=no, width=${w}, height=${h}, top=${y}, left=${x}`);
 }
 
 
@@ -46,7 +46,6 @@ function handleInit(e) {
 
 
 function handleLogin(payload) {
-    console.log(payload);
     if (identityWindow) {
         identityWindow.close();
         identityWindow = null;
@@ -75,13 +74,13 @@ function Login({setUserKey, setLoggedIn, setUser, setSeedHex, setType}) {
   useEffect(() => {
     // const childWindow = document.getElementById('identity').contentWindow;
     window.addEventListener('message', message => {
-      console.log('message: ');
+      // console.log('message: ');
       
       const {data: {id: id, method: method, payload: payload}} = message;    
 
-      console.log(id);
-      console.log(method);
-      console.log(payload);
+      // console.log(id);
+      // console.log(method);
+      // console.log(payload);
 
       if (method == 'initialize') {
           handleInit(message);
@@ -104,10 +103,15 @@ function Login({setUserKey, setLoggedIn, setUser, setSeedHex, setType}) {
         setLoggedIn(true);
 
         get_consumer_info(payload.publicKeyAdded).then(userInfo => 
-          {console.log('userInfo', userInfo); setUser(userInfo)}
+          {//console.log('userInfo', userInfo); 
+            setUser(userInfo)
+          }
           );
         
-        console.log("Logged in!");
+        // console.log("Logged in!");
+      }
+      else if (method == 'sign-up') {
+        sign_up()
       }
     });
 
@@ -135,8 +139,9 @@ function Login({setUserKey, setLoggedIn, setUser, setSeedHex, setType}) {
         <Button variant="contained" color="secondary" onClick={() => {setLoginType("signUp"); signUp("artists");}}>
           Sign up as an Artist
         </Button>
-        {/* <Button onClick={() => signUp("consumers")}>
-          Sign up as a Viewer
+
+        {/* <Button variant="contained" color="secondary" onClick={() => {setLoginType("signUp"); signUp("consumers");}}>
+          Sign up as a User
         </Button> */}
       </Box>
     </div>

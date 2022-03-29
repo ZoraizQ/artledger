@@ -1,7 +1,7 @@
 import requests
 import json
-from Route import getRoute
-from Sign import Sign_Transaction
+from desopip.Route import getRoute
+from desopip.Sign import Sign_Transaction
 
 
 class Trade:

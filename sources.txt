@@ -1,2 +1,2 @@
-https://github.com/AdityaChaudhary0005/DeSo.py
-https://github.com/mikeejazmines/tinder-clone
+https://github.com/AdityaChaudhary0005/DeSo.py > server/desopip
+https://github.com/mikeejazmines/tinder-clone > styling and base components

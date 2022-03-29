@@ -1,11 +1,11 @@
 from queue import Empty
 from random import random, shuffle
 from unittest import result
-from Users import Users
-from Post import Post
-from Posts import Posts
-from Trade import Trade
-from Deso import Deso
+from desopip.Users import Users
+from desopip.Post import Post
+from desopip.Posts import Posts
+from desopip.Trade import Trade
+from desopip.Deso import Deso
 import pprint
 from flask import Flask
 from flask_cors import CORS
@@ -23,8 +23,8 @@ config = {
   "messagingSenderId": "859512512594",
   "appId": "1:859512512594:web:46129010e5fa4650043f8b",
   "databaseURL": "https://desoart-172d0-default-rtdb.firebaseio.com",
-  "serviceAccount": "sa.json"
 }
+
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 

@@ -12,11 +12,11 @@ function SwipeCards({seedHex, userKey, setCurrentArtistKey}) {
 
   
   const swiped = (direction, postHashHex) => {
-    console.log('removing: ' + postHashHex + ' from artist ' + posts[index].artist_key)
+    // console.log('removing: ' + postHashHex + ' from artist ' + posts[index].artist_key)
     setLastDirection(direction)
     if (direction == "right") {
       // like post
-      console.log("passing in", postHashHex, userKey, seedHex);
+      // console.log("passing in", postHashHex, userKey, seedHex);
 
       like_post(postHashHex, userKey, seedHex).then(res => console.log(res));
 
@@ -32,7 +32,7 @@ function SwipeCards({seedHex, userKey, setCurrentArtistKey}) {
    
     get_random_posts().then(
       posts => {
-        console.log('posts',posts);
+        // console.log('posts',posts);
         let posts_filtered = posts.posts.map(p => {
           let post = { 
             description: p.Body, 
@@ -50,7 +50,7 @@ function SwipeCards({seedHex, userKey, setCurrentArtistKey}) {
           return post;
 
         });
-        console.log('photos', posts_filtered);
+        // console.log('photos', posts_filtered);
         setPosts(posts_filtered);
         setCurrentArtistKey(posts_filtered[0].artist_key);
       }

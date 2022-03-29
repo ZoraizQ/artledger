@@ -1,9 +1,9 @@
-from Route import getRoute
+from desopip.Route import getRoute
 import json
 import requests
-from Sign import Sign_Transaction
+from desopip.Sign import Sign_Transaction
 import base58
-from Derived import addExtraDataDict
+from desopip.Derived import addExtraDataDict
 
 
 class Deso:

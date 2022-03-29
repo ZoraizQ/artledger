@@ -1,4 +1,4 @@
-from Route import getRoute
+from desopip.Route import getRoute
 import requests
 from base58 import b58decode_check
 

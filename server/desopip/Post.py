@@ -1,8 +1,8 @@
 from os import PathLike
 import requests
-from Route import getRoute
-from Sign import Sign_Transaction
-from Derived import addExtraData
+from desopip.Route import getRoute
+from desopip.Sign import Sign_Transaction
+from desopip.Derived import addExtraData
 import binascii
 from ecdsa import SigningKey, SECP256k1
 from ecdsa.ecdsa import Public_key
