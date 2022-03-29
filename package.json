@@ -1,7 +1,7 @@
 {
   "name": "artledger",
   "version": "0.1.0",
-  "private": true,
+  "homepage": "https://zoraizq.github.io/artledger",
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
