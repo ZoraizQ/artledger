@@ -1,4 +1,4 @@
-# HooHacks Submission 2022 - ArtLedger
+# ArtLedger
 
 ## About the project
 A blockchain based Tinder-like random art exploration responsive web app to discover and support lesser known artists.
