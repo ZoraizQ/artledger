@@ -47,9 +47,8 @@ npm start
 ```
 3. To run the server/backend:
 ```
-cd server
 pip3 install -r requirements.txt 
-python3 server.py
+python3 server/server.py
 ```
 Note: you may need to install dependencies like pycryptodome individually first on Linux/MacOS to prevent pyrebase clashes.
 
