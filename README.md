@@ -45,8 +45,9 @@ This web app is built on the DeSo blockchain, providing the complete social medi
 npm i
 npm start
 ```
-3. To run the server/backend:
+3. To run the server/backend locally:
 ```
+// Change server URL in src/api.js to http://127.0.0.1:5000
 pip3 install -r requirements.txt 
 python3 server/server.py
 ```
