@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 
-// const URL  = "http://127.0.0.1:5000"
-const URL  = "https://art-ledger.herokuapp.com:5000"
+const URL  = "http://127.0.0.1:5000"
+// const URL  = "https://art-ledger.herokuapp.com:5000"
 
 
 export async function sign_up(public_key,type){
