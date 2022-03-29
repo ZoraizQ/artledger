@@ -35,7 +35,7 @@ export async function get_consumer_info(public_key){
     console.log(data);
     return data;
 }
-get_consumer_info('BC1YLiyxrKs33n3mwPDaT2h7rNigZNSxTAAe1SY9SVkoeQA2h5A7b3p');
+// get_consumer_info('BC1YLiyxrKs33n3mwPDaT2h7rNigZNSxTAAe1SY9SVkoeQA2h5A7b3p');
 
 export async function get_artists_info(public_key){
     const param = {key:public_key};

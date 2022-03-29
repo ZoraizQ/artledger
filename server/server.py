@@ -1,12 +1,10 @@
 from queue import Empty
 from random import random, shuffle
-from unittest import result
 from desopip.Users import Users
 from desopip.Post import Post
 from desopip.Posts import Posts
 from desopip.Trade import Trade
 from desopip.Deso import Deso
-import pprint
 from flask import Flask
 from flask_cors import CORS
 from flask import request, jsonify
