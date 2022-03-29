@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/artledger/static/css/main.96ac0d62.css",
-    "main.js": "/artledger/static/js/main.49396f7f.js",
+    "main.js": "/artledger/static/js/main.d225c1d7.js",
     "index.html": "/artledger/index.html",
     "main.96ac0d62.css.map": "/artledger/static/css/main.96ac0d62.css.map",
-    "main.49396f7f.js.map": "/artledger/static/js/main.49396f7f.js.map"
+    "main.d225c1d7.js.map": "/artledger/static/js/main.d225c1d7.js.map"
   },
   "entrypoints": [
     "static/css/main.96ac0d62.css",
-    "static/js/main.49396f7f.js"
+    "static/js/main.d225c1d7.js"
   ]
 }
