@@ -6,9 +6,14 @@ A blockchain based Tinder-like random art exploration responsive web app to disc
 ![artist](/assets/artist.png)
 
 
-This web app is built on the DeSo blockchain, providing the complete social media interface with Tinder-like UI for swiping based randomized exploration to discover lesser known artists and consumers. Artists can upload their content and consumers interact with it. General users can swipe right to like, swipe left to ignore, and even tip to support the artist. Users can view their liked art and the profiles of Artists, and Artists can view their posts along with likes and tips.
+This web app is built on the DeSo blockchain, providing the complete social media interface with Tinder-like UI for swiping based randomized exploration to discover lesser known artists and consumers. Artists can upload their content and consumers interact with it. General users can swipe right to like, swipe left to ignore, and even tip to support the artist. Users can view their liked art and the profiles of Artists, and Artists can view their posts along with likes and tips. Submitted to HooHacks 2022.
 
 ![card2](/assets/card2.png)
+
+
+## Creators
+* Zoraiz Qureshi [@ZoraizQ](https://github.com/ZoraizQ) 
+* Ethan Kacena-Merrell [@ethank-m](https://github.com/ethank-m)
 
 
 ## Features
@@ -70,5 +75,6 @@ Server:
 ## Code sources used
 * Directly used and modified DeSo Python Request Wrapper - https://github.com/AdityaChaudhary0005/DeSo.py
 * React Tinder Clone basic guide - https://www.youtube.com/watch?v=DQfeB_FKKkc
+
 
 
