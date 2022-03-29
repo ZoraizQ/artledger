@@ -73,6 +73,9 @@ function ArtistProfile() {
           if (p.ImageURLs !== null && p.ImageURLs !== undefined && p.ImageURLs.length !== 0) {
             post.src = p.ImageURLs[0]; 
           }
+          else {
+            post.src = "";
+          }
           
           return post;
 
@@ -93,7 +96,6 @@ function ArtistProfile() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: "center",
-        marginBottom: 2
       }}>
         <div className="logo-header">
           <FavoriteIcon></FavoriteIcon>
@@ -105,7 +107,7 @@ function ArtistProfile() {
           <h5 style={{fontSize: 20, fontFamily: "Courier New", fontWeight: 400}}>{artist.diamonds}</h5>
         </div>
 
-        &nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;
       
         <Avatar
           src={artist.profile_pic}
@@ -126,6 +128,7 @@ function ArtistProfile() {
         </div>
       </Box>
 
+      <Typography style={{margin: 5, fontFamily: 'Courier New', fontWeight: 600}}>My Art</Typography>
       <Gallery photos={photos} onClick={openLightbox} />
 
       <ModalGateway>
@@ -133,10 +136,10 @@ function ArtistProfile() {
           <Modal onClose={closeLightbox}>
             <Carousel
               currentIndex={currentImage}
-              views={photos.map(x => ({
-                ...x,
-                srcset: x.srcSet,
-                caption: x.title
+              views={photos.map(p => ({
+                ...p,
+                srcset: p.srcset,
+                caption: p.description
               }))}
             />
           </Modal>
