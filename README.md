@@ -42,7 +42,6 @@ This web app is built on the DeSo blockchain, providing the complete social medi
 1. Clone the repo
 2. To run the client/frontend:
 ```
-cd client
 npm i
 npm start
 ```
