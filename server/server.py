@@ -13,14 +13,15 @@ CORS(app)
 import pyrebase
 import math
 
+# update config to connect to firebase app for cloudstore
 config = {
-  "apiKey": "AIzaSyBC8sBWUtc7fvPbPJ_3a2p51IH20RLJ-8Y",
-  "authDomain": "desoart-172d0.firebaseapp.com",
-  "projectId": "desoart-172d0",
-  "storageBucket": "desoart-172d0.appspot.com",
-  "messagingSenderId": "859512512594",
-  "appId": "1:859512512594:web:46129010e5fa4650043f8b",
-  "databaseURL": "https://desoart-172d0-default-rtdb.firebaseio.com",
+  "apiKey": "",
+  "authDomain": "",
+  "projectId": "",
+  "storageBucket": "",
+  "messagingSenderId": "",
+  "appId": "",
+  "databaseURL": "",
 }
 
 firebase = pyrebase.initialize_app(config)
